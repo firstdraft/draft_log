@@ -1,5 +1,7 @@
 require "draft_log/log_subscriber"
 require "draft_log/add_extra_request_log_data"
+require "awesome_print"
+
 if defined? Rails
   require "draft_log/railtie"
   require 'draft_log/rails_ext/rack/logger'
