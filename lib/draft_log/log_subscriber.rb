@@ -7,7 +7,7 @@ module DraftLog
       payload = event.payload
       param_method = payload[:params]["_method"]
       method = param_method ? param_method.upcase : payload[:method]
-
+      
       message = %Q{\nWe received a request at #{Time.now.strftime("%I:%M%p on %A, %b %d!")} Someone wants to
   #{method} #{payload[:path]}
 
@@ -17,7 +17,7 @@ The route told me to use the #{payload[:controller].ai} and #{payload[:action].a
       message += custom_query_string(payload) if payload[:query_string].present?
       message += custom_params(payload) if payload[:params].present?
       message += custom_cookies(payload) if payload[:cookies].present?
-      message += custom_sessione(payload) if payload[:session].present?
+      message += custom_session(payload) if payload[:session].present?
       message += custom_instance_var(payload) if payload[:controller_instance_var].present?
       message += "==============================================================================================================\n"
 
@@ -48,7 +48,7 @@ The route told me to use the #{payload[:controller].ai} and #{payload[:action].a
 #{payload[:cookies].ai}\n\n"
     end
 
-    def custom_sessione(payload)
+    def custom_session(payload)
       "  # session
 #{payload[:session].ai}\n\n"
     end
