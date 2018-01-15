@@ -1,4 +1,5 @@
 require "draft_log/log_subscriber"
+require "draft_log/view_log_subscriber"
 require "draft_log/add_extra_request_log_data"
 require "awesome_print"
 

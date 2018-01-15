@@ -19,6 +19,7 @@ The route told me to use the #{payload[:controller].ai} and #{payload[:action].a
       message += custom_cookies(payload) if payload[:cookies].present?
       message += custom_session(payload) if payload[:session].present?
       message += custom_instance_var(payload) if payload[:controller_instance_var].present?
+      message += view_log(payload) if payload[:view_log_event_data].present?
       message += "==============================================================================================================\n"
 
       logger.warn message
@@ -56,6 +57,13 @@ The route told me to use the #{payload[:controller].ai} and #{payload[:action].a
     def custom_instance_var(payload)
       %Q{The "#{payload[:controller].ai}##{payload[:action].ai}" action defined these instance variables:
 #{payload[:controller_instance_var].ai}\n\n}
+    end
+
+    def view_log(payload)
+      template_path = payload[:view_log_event_data][:identifier].sub("#{Rails.root.to_s}/", '')
+      %Q{The #{(payload[:controller] + "#" + payload[:action]).ai} action told me to use
+  #{template_path.ai}
+to format the response.\n\n}
     end
 
   end

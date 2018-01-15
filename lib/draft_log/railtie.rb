@@ -7,5 +7,6 @@ module DraftLog
     end
 
     DraftLog::LogSubscriber.attach_to :action_controller
+    DraftLog::ViewLogSubscriber.attach_to :action_view
   end
 end

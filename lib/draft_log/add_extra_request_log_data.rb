@@ -9,6 +9,8 @@ module DraftLog
       payload[:path_param] = request.path_parameters.except(:controller, :action, :format, :_method, :only_path)
       payload[:controller_instance_var] = instance_variables.select{|x| !x.to_s.start_with?('@_') }.reject{|y| y == :@marked_for_same_origin_verification }.
         inject({}) {|result, element| result[element.to_s] = instance_variable_get(element.to_s).to_s; result }
+      payload[:view_log_event_data] = Thread.current[:view_log_payload]
+      Thread.current[:view_log_payload] = nil
     end
   end
 end
