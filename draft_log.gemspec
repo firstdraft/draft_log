@@ -11,12 +11,26 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.require_paths = ["lib"]
   s.authors = ["Murugan"]
-  s.date = "2018-01-05"
+  s.date = "2018-01-16"
   s.description = "Helpful log for beginners"
   s.email = "murugan@firstdraft.com"
   s.extra_rdoc_files = [
     "LICENSE.txt",
     "README.rdoc"
+  ]
+  s.files = [
+    "Gemfile",
+    "LICENSE.txt",
+    "README.rdoc",
+    "Rakefile",
+    "VERSION",
+    "draft_log.gemspec",
+    "lib/draft_log.rb",
+    "lib/draft_log/add_extra_request_log_data.rb",
+    "lib/draft_log/log_subscriber.rb",
+    "lib/draft_log/rails_ext/rack/logger.rb",
+    "lib/draft_log/railtie.rb",
+    "lib/draft_log/view_log_subscriber.rb"
   ]
   s.homepage = "http://github.com/firstdraft/draft_log"
   s.licenses = ["MIT"]
