@@ -16,8 +16,8 @@ The route told me to use the #{payload[:controller].ai} and #{payload[:action].a
       message += flexible_path_segment(payload) if payload[:path_param].present?
       message += custom_query_string(payload) if payload[:query_string].present?
       message += custom_params(payload) if payload[:params].present?
-      message += custom_cookies(payload) if payload[:cookies].present?
-      message += custom_session(payload) if payload[:session].present?
+      # message += custom_cookies(payload) if payload[:cookies].present?
+      # message += custom_session(payload) if payload[:session].present?
       message += custom_instance_var(payload) if payload[:controller_instance_var].present?
       message += view_log(payload) if payload[:view_log_event_data].present?
       message += "==============================================================================================================\n"
