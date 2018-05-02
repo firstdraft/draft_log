@@ -20,7 +20,7 @@ The route told me to use the #{payload[:controller].ai} and #{payload[:action].a
       # message += custom_session(payload) if payload[:session].present?
       message += custom_instance_var(payload) if payload[:controller_instance_var].present?
       message += view_log(payload) if payload[:view_log_event_data].present?
-      message += "==============================================================================================================\n"
+      message += "========================================\n"
 
       logger.warn message
     end
