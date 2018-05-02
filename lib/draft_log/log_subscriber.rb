@@ -55,7 +55,7 @@ The route told me to use the #{payload[:controller].ai} and #{payload[:action].a
     end
 
     def custom_instance_var(payload)
-      %Q{The "#{payload[:controller].ai}##{payload[:action].ai}" action defined these instance variables:
+      %Q{The #{(payload[:controller] + '#' +payload[:action]).ai} action defined these instance variables:
 #{payload[:controller_instance_var].ai}\n\n}
     end
 
