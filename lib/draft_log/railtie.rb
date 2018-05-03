@@ -4,6 +4,7 @@ module DraftLog
     config.after_initialize do |app|
       DraftLog.setup
       ActionController::Base.send :prepend, AddExtraRequestLogData
+      DraftLog::ActiveRecordLogSubscriber.attach_to :active_record
     end
 
     DraftLog::LogSubscriber.attach_to :action_controller

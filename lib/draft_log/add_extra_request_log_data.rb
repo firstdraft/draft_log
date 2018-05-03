@@ -11,6 +11,8 @@ module DraftLog
         inject({}) {|result, element| result[element.to_s] = instance_variable_get(element.to_s).to_s; result }
       payload[:view_log_event_data] = Thread.current[:view_log_payload]
       Thread.current[:view_log_payload] = nil
+      payload[:active_record_log_payload] = Thread.current[:active_record_log_payload]
+      Thread.current[:active_record_log_payload] = []
     end
   end
 end
