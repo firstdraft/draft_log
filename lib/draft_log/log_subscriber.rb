@@ -18,6 +18,7 @@ The route told me to use the #{payload[:controller].ai} and #{payload[:action].a
       message += custom_params(payload) if payload[:params].present?
       # message += custom_cookies(payload) if payload[:cookies].present?
       # message += custom_session(payload) if payload[:session].present?
+      message += activerecord_sql(payload) if payload[:active_record_log_payload].present?
       message += custom_instance_var(payload) if payload[:controller_instance_var].present?
       message += view_log(payload) if payload[:view_log_event_data].present?
       message += "========================================\n"
@@ -52,6 +53,12 @@ The route told me to use the #{payload[:controller].ai} and #{payload[:action].a
     def custom_session(payload)
       "  # session
 #{payload[:session].ai}\n\n"
+    end
+
+    def activerecord_sql(payload)
+      msg = "Query\n"
+      msg += payload[:active_record_log_payload].join("\n") + "\n\n"
+      msg
     end
 
     def custom_instance_var(payload)
