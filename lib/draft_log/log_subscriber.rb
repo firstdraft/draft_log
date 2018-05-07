@@ -21,6 +21,7 @@ The route told me to use the #{payload[:controller].ai} and #{payload[:action].a
       message += activerecord_sql(payload) if payload[:active_record_log_payload].present?
       message += custom_instance_var(payload) if payload[:controller_instance_var].present?
       message += view_log(payload) if payload[:view_log_event_data].present?
+      message += completed_message(event)
       message += "========================================\n"
 
       logger.warn message
@@ -71,6 +72,23 @@ The route told me to use the #{payload[:controller].ai} and #{payload[:action].a
       %Q{The #{(payload[:controller] + "#" + payload[:action]).ai} action told me to use
   #{template_path.ai}
 to format the response.\n\n}
+    end
+
+    def completed_message(event)
+      payload   = event.payload
+      additions = ActionController::Base.log_process_action(payload)
+
+      status = payload[:status]
+      if status.nil? && payload[:exception].present?
+        exception_class_name = payload[:exception].first
+        status = ActionDispatch::ExceptionWrapper.status_code_for_exception(exception_class_name)
+      end
+
+      message = "Completed #{status} #{Rack::Utils::HTTP_STATUS_CODES[status]} in #{event.duration.round}ms"
+      message << " (#{additions.join(" | ".freeze)})" unless additions.empty?
+      message << "\n\n" if defined?(Rails.env) && Rails.env.development?
+
+      message
     end
 
   end
