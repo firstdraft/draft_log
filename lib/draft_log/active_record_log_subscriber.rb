@@ -1,4 +1,4 @@
-require "active_support"
+require "active_record/log_subscriber"
 
 module DraftLog
   class ActiveRecordLogSubscriber < ::ActiveRecord::LogSubscriber
