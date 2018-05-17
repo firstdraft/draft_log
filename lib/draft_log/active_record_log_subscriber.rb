@@ -30,5 +30,12 @@ module DraftLog
       Thread.current[:active_record_log_payload] ||= []
       Thread.current[:active_record_log_payload] << "  #{name}  #{sql}#{binds}"
     end
+
+    private
+
+      def type_casted_binds(binds, casted_binds)
+        casted_binds || ActiveRecord::Base.connection.type_casted_binds(binds)
+      end
+    
   end
 end
