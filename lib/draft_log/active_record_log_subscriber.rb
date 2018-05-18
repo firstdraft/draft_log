@@ -34,7 +34,7 @@ module DraftLog
     private
 
       def type_casted_binds(binds, casted_binds)
-        casted_binds || ActiveRecord::Base.connection.type_casted_binds(binds)
+        casted_binds ? (casted_binds.respond_to?(:call) ? casted_binds.call : casted_binds) : ActiveRecord::Base.connection.type_casted_binds(binds)
       end
     
   end
