@@ -18,10 +18,14 @@ module DraftLog
       binds = nil
 
       unless (payload[:binds] || []).empty?
-        casted_params = type_casted_binds(payload[:binds], payload[:type_casted_binds])
-        binds = "  " + payload[:binds].zip(casted_params).map { |attr, value|
-          render_bind(attr, value)
-        }.inspect
+        begin
+          casted_params = type_casted_binds(payload[:binds], payload[:type_casted_binds])
+          binds = "  " + payload[:binds].zip(casted_params).map { |attr, value|
+            render_bind(attr, value)
+          }.inspect
+        rescue
+          binds = "  " + payload[:binds].map { |attr| render_bind(attr) }.inspect
+        end
       end
 
       name = colorize_payload_name(name, payload[:name])
